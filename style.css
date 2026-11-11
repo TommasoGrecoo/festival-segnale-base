@@ -1,15 +1,13 @@
-/* Stile iniziale: tipografia, colori e variabili CSS sono già predisposti.
-   Lavoreremo su collegamenti, CSS condiviso e disposizione delle schede. */
+/* Segnale: esempio completo della consegna su Home e Programma. */
 
-/* Scelte comuni: ogni regola usa var() per richiamarne il valore. */
+/* Valori condivisi: le regole interessate li richiamano con var(). */
 :root {
- --colore-primario: #2b5f4f;
---colore-primario-scuro: #194437;
-
+  --colore-primario: #234c78;
+  --colore-primario-scuro: #163454;
   --colore-sfondo: #f5f2e9;
   --colore-testo: #202923;
-    --font-testo: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-titoli: Cambria, Georgia, "Times New Roman", serif;
+  --font-testo: Arial, Helvetica, sans-serif;
+  --font-titoli: Georgia, "Times New Roman", serif;
 }
 
 * {
@@ -30,12 +28,11 @@ a {
 }
 
 a:hover {
-  text-decoration-thickness: 3px;
+  text-decoration: underline;
 }
 
-a:focus-visible {
+a:focus {
   outline: 3px solid var(--colore-testo);
-  outline-offset: 4px;
 }
 
 .container {
@@ -75,9 +72,6 @@ nav a {
   padding: 0.25rem 0;
 }
 
-nav a[aria-current="page"] {
-  font-weight: bold;
-}
 
 .intro {
   padding: 3rem 0 1rem;
@@ -157,28 +151,14 @@ h3 {
   margin-bottom: 0.5rem;
 }
 
+/* Disposizione di base: una colonna. */
 .event-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
-  min-width: 0;
-}
-
-@media (min-width: 600px) {
-  .event-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1024px) {
-  .event-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
 }
 
 .event-card {
-  min-width: 0;
-  margin-bottom: 0;
   overflow: hidden;
   border: 1px solid #b7c0b7;
   border-radius: 0.75rem;
@@ -188,21 +168,15 @@ h3 {
 .event-card img {
   display: block;
   width: 100%;
-  max-width: 100%;
   height: auto;
 }
 
 .event-body {
-  min-width: 0;
-  padding: 1.25rem;
-  overflow-wrap: anywhere;
-}
-
-.event-body p:last-child {
-  margin-bottom: 0;
+  padding: 1.5rem;
 }
 
 .event-place {
+  margin-bottom: 0;
   color: #46564b;
   font-size: 0.875rem;
 }
@@ -227,20 +201,119 @@ h3 {
   top: 1rem;
 }
 
-.container,
-.event-grid,
-.event-card,
-.event-body {
-  min-width: 0;
+/* Da 600 px: due colonne. */
+@media (min-width: 600px) {
+  .event-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-img {
-  max-width: 100%;
+/* Da 1024 px: tre colonne. Questa regola segue quella da 600 px. */
+@media (min-width: 1024px) {
+  .event-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+/* Stili per il carosello Swiper delle sedi */
+.sedi-swiper {
+  width: 100%;
+  max-width: 54rem;
+  margin: 1.5rem 0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #b7c0b7;
+}
+
+.slide-content {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-content img {
+  display: block;
+  width: 100%;
   height: auto;
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
 }
 
-.reading-text,
-.venues,
-.site-footer {
-  overflow-wrap: anywhere;
+.slide-content figcaption {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.slide-content figcaption h3 {
+  margin-top: 0;
+  color: var(--colore-primario);
+}
+
+.slide-content figcaption p {
+  margin-bottom: 0;
+  color: #46564b;
+}
+
+/* Personalizzazione pulsanti Swiper */
+.swiper-button-next,
+.swiper-button-prev {
+  color: var(--colore-primario);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 1.5rem;
+  border-radius: 50%;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 1.25rem;
+  font-weight: bold;
+}.sedi-swiper .swiper-button-prev,
+.sedi-swiper .swiper-button-next {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--colore-primario-scuro, #194437);
+  color: #fff;
+  cursor: pointer;
+}
+
+.sedi-swiper .swiper-button-prev::after,
+.sedi-swiper .swiper-button-next::after {
+  content: none;
+}
+
+.sedi-swiper .swiper-button-prev span,
+.sedi-swiper .swiper-button-next span {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.sedi-swiper .swiper-button-prev:focus-visible,
+.sedi-swiper .swiper-button-next:focus-visible {
+  outline: 3px solid #202923;
+  outline-offset: 3px;
+}
+.mappa-contenitore {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.mappa-contenitore iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.elenco-sedi {
+  padding-left: 1.25rem;
+}
+
+.elenco-sedi li {
+  margin-block: 1.5rem;
+}
+
+.elenco-sedi address {
+  font-style: normal;
 }
